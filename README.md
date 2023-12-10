@@ -1,5 +1,5 @@
 # apricot
-A next-generation browser engine made in Red.
+A next-generation browser engine (and browser) made in Red.
 
 ## Why should this even exist?
 
