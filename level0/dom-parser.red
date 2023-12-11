@@ -1,32 +1,54 @@
 Red [
   About: "Apricot DOM Parser."
 ]
-make-node: func [
-    type [word!]
-    value [string!]
-    children [block!]
-][
-    reduce [type value children]
+attr-map: context []
+node: context [
+    children: copy []
+    node-type: none
 ]
-parse-html: func [html [string!]] [
-    stack: make stack!
-    root: none
-    current: none
-    parse html [
-        any [
-            "<" (collect [
-                some [copy tag to ">" | skip]) ">" (
-                    node: make-node 'element tag [])
-                    if not root [root: node]
-                    if current [append current  node]
-                    push stack current
-                    current: node
-            |
-                thru "<" (
-                    node: make-node 'text copy text to "<")
-                    if current [append current node]
-                    current: pop stack
-            ]
-        ]
+element-data: context [
+    tag-name: none
+    attributes: attr-map
+]
+text: func [data [string!]] [
+    node: make node [
+        children: copy []
+        node-type: 'text
+    ]
+    node/text: data
+    node
+]
+elem: func [name [string!] attrs [attr-map] children [block!]] [
+    node: make node [
+        children: copy []
+        node-type: 'element
+    ]
+    node/node-type: make element-data [
+        tag-name: name
+        attributes: attrs
+    ]
+    node/children: children
+    node
+]
+ElementData: make element-data []
+ElementData/id: func [] [
+    get in attributes "id"
+]
+ElementData/classes: func [] [
+    classlist: get in attributes "class"
+    if classlist [
+        split classlist " "
+    ] [
+        []
     ]
 ]
+
+; Manual Example:
+
+;node: elem "div" make attr-map ["id" "mydiv" "class" "myclass"] [
+;    elem "p" make attr-map ["class" "paragraph"] [
+;        text "Hello, World!"
+;    ]
+;]
+
+print node
