@@ -12,7 +12,7 @@ I'm quickly realizing that Red is the greatest programming language to exist sin
 ## Upcoming features of Apricot:
 
 - Normal Web Surfing
-- TUUP Compatibility
+- TUUP Compliance
 - Ability to Use Web3 Domains Out-of-the-Box
 - Built-In Ad Blocking / Whitelisting
 - Built-In Torrent Client
