@@ -8,6 +8,7 @@ html: [
         ["body" [] [
             ["h1" [] "Heading"]
             ["p" [] "Paragraph"]
+            ["h2" [] "Heading 2"]
         ]]
     ]]
 ]
